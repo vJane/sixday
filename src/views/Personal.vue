@@ -143,7 +143,7 @@
             if (res.data.code === 200) {
               this.msg = res.data.msg;
               this.uid = this.msg.id;
-              this.imageUrl = this.msg.portrait;
+              // this.imageUrl = this.msg.portrait;
             }
         });
       }

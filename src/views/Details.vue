@@ -5,7 +5,7 @@
         <div class="el-icon-loading"></div>
       </div>
       <div v-else class="diary-wrapper">
-        <img src='../assets/3.jpg' class="diary-image"/>
+        <img :src=msg.src class="diary-image"/>
         <div class="diary-text">
           {{msg.context}}
         </div>

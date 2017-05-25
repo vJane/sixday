@@ -27,7 +27,9 @@
     </div>
     <div v-else class="list-wrapper">
       <div v-for="d in msg" class="diary-box">
-        <img src="../assets/3.jpg" class="diary-photo" @click="lookDetail(d.id)"/>
+        <img :src=d.src class="diary-photo" @click="lookDetail(d.id)"/>
+        <!--{{d.src}}-->
+        <!--<img src="http://a1.qpic.cn/psb?/V14QQRlh1TxXJi/IiZM41t*FlfiJkdtL335.yJmC4bZwu5JPr*9Gcri.JU!/b/dGsBAAAAAAAA&bo=cQSAAgAAAAARAMA!&rf=viewer_4&t=5" />-->
         <div class="overflow">
           <div class="diary-date">{{d.created_at | date}}</div>
           <div class="diary-weather">{{d.temperature}}</div>

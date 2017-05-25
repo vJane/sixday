@@ -13,7 +13,7 @@ function formatData(rows) {
 module.exports = {
     // 获取日记列表
     fetchAll (req, res) {
-        const sql = "SELECT diaries.id as id, maps.id as mid, context, temperature, longitude, latitude, address, diaries.created_at as created_at FROM diaries, maps WHERE diaries.mid = maps.id ORDER BY diaries.created_at desc";
+        const sql = "SELECT diaries.id as id, maps.id as mid, photos.id as pid, src, context, temperature, longitude, latitude, address, diaries.created_at as created_at FROM diaries, maps, photos WHERE diaries.mid = maps.id AND diaries.id = photos.did ORDER BY diaries.created_at desc";
         func.query(sql, result => {
             let rows = result.rows;
             rows = formatData(rows);
@@ -40,7 +40,7 @@ module.exports = {
     // 获取日记详情
     fetchById (req, res) {
         let id = req.body.id;
-        let sql = `SELECT * FROM diaries, maps WHERE diaries.mid = maps.id AND diaries.id = '${id}'` ;
+        let sql = `SELECT * FROM diaries, maps, photos WHERE diaries.mid = maps.id AND diaries.id = photos.did AND diaries.id = '${id}'` ;
         func.query(sql, result => {
             rows = formatData(result.rows);
             res.json({code: 200, msg: rows[0]});
@@ -50,7 +50,7 @@ module.exports = {
 
     filter (req, res) {
         let key = req.body.key;
-        let sql = `SELECT diaries.id as id, maps.id as mid, context, temperature, longitude, latitude, address, diaries.created_at as created_at FROM diaries, maps WHERE diaries.mid = maps.id AND context LIKE '%${key}%' ORDER BY diaries.created_at desc`;
+        let sql = `SELECT diaries.id as id, maps.id as mid, photos.id as pid, src, context, temperature, longitude, latitude, address, diaries.created_at as created_at FROM diaries, maps, photos WHERE diaries.mid = maps.id AND photos.did = diaries.id AND context LIKE '%${key}%' ORDER BY diaries.created_at desc`;
         func.query(sql, result => {
             let rows = result.rows;
             rows = formatData(rows);
