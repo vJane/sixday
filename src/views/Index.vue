@@ -133,6 +133,8 @@
               instance.getCurrentPosition((status, result) => {
                 if (status === 'error') {
                   // alert('网络故障，获取地点天气失败！')
+                  self.address = '河北省秦皇岛市海港区白塔岭街道河北科技师范学院继续教育学院河北科技师范学院';
+                  self.district = '海港区';
                 } else {
                   self.lng = result.position.lng;
                   self.lat = result.position.lat;
