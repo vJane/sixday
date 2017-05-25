@@ -13,12 +13,10 @@
           <div class="icon-text">动态</div>
         </el-menu-item>
       </router-link>
-      <!--<router-link to='/Lists'>-->
-        <el-menu-item index="2" class="menu-item">
-          <div v-bind:class=index2></div>
-          <div class="icon-text">照片</div>
-        </el-menu-item>
-      <!--</router-link>-->
+      <el-menu-item index="2" class="menu-item" @click=getIamge>
+        <div v-bind:class=index2></div>
+        <div class="icon-text">照片</div>
+      </el-menu-item>
       <router-link to='/'>
         <el-menu-item index="3" class="menu-item">
           <div v-bind:class=index3></div>
@@ -41,6 +39,8 @@
   </div>
 </template>
 <script>
+  import uuid from 'node-uuid';
+  import jsSHA from 'jssha';
   export default {
     name: 'headerBar',
     data() {
@@ -53,6 +53,42 @@
         activeIndex: '3',
       };
     },
+    methods: {
+      getIamge: function() {
+        wx.chooseImage({
+          count: 1,
+          sizeType: ['original', 'compressed'],
+          sourceType: ['camera'], 
+          success: function (res) {
+            console.log(res);
+              var localIds = res.localIds;
+          }
+        });
+      }
+    },
+    created() {
+      this.func.ajaxGet(this.api.weixinTicket, res => {
+        if (res.data.code === 200) {
+          const ticket = res.data.msg;
+          const timestamp = (new Date()).getTime();
+          const nonce = uuid.v1();
+          const url = 'http://localhost:8080';
+          const corpid = 'wx5ca89ffbd7dae3cc';
+          const shaObj = new jsSHA(`jsapi_ticket=${ticket}&noncestr=${nonce}&timestamp=${timestamp}&url=${url}`, 'TEXT');
+          const signature = shaObj.getHash('SHA-1', 'HEX');
+          wx.config({
+            debug: true, 
+            appId: corpid, 
+            timestamp: timestamp, 
+            nonceStr: nonce, 
+            signature: signature,
+            jsApiList: [
+              'chooseImage', 
+            ] 
+          });
+        }
+      });
+    }
   };
 </script>
 

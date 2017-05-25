@@ -73,7 +73,7 @@
             <div class="share qq2"></div>
             <el-checkbox v-model="checked2" class="checked"></el-checkbox>
           </div>
-          <div class="share-wrapper" @click=shareWeixin>
+          <div class="share-wrapper">
             <div class="share wechat1"></div>
             <el-checkbox v-model="checked3" class="checked"></el-checkbox>
           </div>
@@ -107,7 +107,6 @@
   </div>
 </template>
 
-<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script>
   import HeaderBar2 from '@/components/HeaderBar2';
   import TabBar from '@/components/TabBar';
@@ -132,7 +131,6 @@
             init(instance) {
               instance.getCurrentPosition((status, result) => {
                 if (status === 'error') {
-                  // alert('网络故障，获取地点天气失败！')
                   self.address = '河北省秦皇岛市海港区白塔岭街道河北科技师范学院继续教育学院河北科技师范学院';
                   self.district = '海港区';
                 } else {
@@ -198,6 +196,18 @@
               this.did = res.data.msg;
             }
         });
+        if (this.checked1) {
+          this.shareQQ();
+        }
+        if (this.checked2) {
+          this.shareQZone();
+        }
+        if (this.checked3) {
+          this.shareAppMessage();
+        }
+        if (this.checked4) {
+          this.shareTimeline();
+        }
       },
       handleClose(done) {
         done();
@@ -211,48 +221,85 @@
         this.diaryPhoto = '../assets/' + fileName;
         // console.log(this.diaryPhoto)
       },
-      shareWeixin() {
-        this.func.ajaxGet(this.api.weixinTicket, res => {
-            if (res.data.code === 200) {
-              const ticket = res.data.msg;
-              const timestamp = (new Date()).getTime();
-              const nonce = uuid.v1();
-              const url = 'http://localhost:8080';
-              const corpid = 'wx5ca89ffbd7dae3cc';
-              const shaObj = new jsSHA(`jsapi_ticket=${ticket}&noncestr=${nonce}&timestamp=${timestamp}&url=${url}`, 'TEXT');
-              const signature = shaObj.getHash('SHA-1', 'HEX');
-              wx.config({
-                debug: true, 
-                appId: corpid, 
-                timestamp: timestamp, 
-                nonceStr: nonce, 
-                signature: signature,
-                jsApiList: [
-                  chooseImage, 
-                  previewImage, 
-                  uploadImage, 
-                  downloadImage, 
-                  onMenuShareTimeline, 
-                  onMenuShareAppMessage, 
-                  onMenuShareQQ, 
-                  onMenuShareQZone
-                ] 
-              });
-              wx.onMenuShareTimeline({
-                title: this.diaryText,
-                success: function () { 
-                  console.log('分享成功！')
-                },
-                cancel: function () { 
-                  console.log('分享取消！')
-                }
-            });
-            }
+      shareQQ() {
+        alert("QQ分享成功");
+        wx.onMenuShareQQ({
+          title: this.diaryText,
+          success: function () { 
+            console.log('分享成功！')
+          },
+          cancel: function () { 
+            console.log('分享取消！')
+          }
+        });
+      },
+      shareQZone() {
+        alert("QQ空间分享成功");
+        wx.onMenuShareQZone({
+          title: this.diaryText,
+          success: function () { 
+            console.log('分享成功！')
+          },
+          cancel: function () { 
+            console.log('分享取消！')
+          }
+        });
+      },
+      shareAppMessage() {
+        alert("微信分享成功");
+        wx.onMenuShareAppMessage({
+          title: this.diaryText,
+          success: function () { 
+            console.log('分享成功！')
+          },
+          cancel: function () { 
+            console.log('分享取消！')
+          }
+        });
+      },
+      shareTimeline() {
+        alert("朋友圈分享成功");
+        wx.onMenuShareTimeline({
+          title: this.diaryText,
+          success: function () { 
+            console.log('分享成功！')
+          },
+          cancel: function () { 
+            console.log('分享取消！')
+          }
         });
       }
     },
     created() {
       this.uid = localStorage.getItem('uid');
+      this.func.ajaxGet(this.api.weixinTicket, res => {
+        if (res.data.code === 200) {
+          const ticket = res.data.msg;
+          const timestamp = (new Date()).getTime();
+          const nonce = uuid.v1();
+          const url = 'http://localhost:8080';
+          const corpid = 'wx5ca89ffbd7dae3cc';
+          const shaObj = new jsSHA(`jsapi_ticket=${ticket}&noncestr=${nonce}&timestamp=${timestamp}&url=${url}`, 'TEXT');
+          const signature = shaObj.getHash('SHA-1', 'HEX');
+          wx.config({
+            debug: true, 
+            appId: corpid, 
+            timestamp: timestamp, 
+            nonceStr: nonce, 
+            signature: signature,
+            jsApiList: [
+              'chooseImage', 
+              'previewImage', 
+              'uploadImage', 
+              'downloadImage', 
+              'onMenuShareTimeline', 
+              'onMenuShareAppMessage', 
+              'onMenuShareQQ', 
+              'onMenuShareQZone'
+            ] 
+          });
+        }
+      });
     }
   }
 </script>

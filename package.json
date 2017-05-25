@@ -16,7 +16,7 @@
   "dependencies": {
     "axios": "^0.16.1",
     "element-ui": "^1.2.9",
-    "jssha": "^2.3.0",
+    "jssha": "^1.6.0",
     "node-uuid": "^1.4.8",
     "vue": "^2.2.6",
     "vue-amap": "^0.2.4",
