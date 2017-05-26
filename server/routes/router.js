@@ -1,6 +1,7 @@
 let express = require('express');
 let diary = require('../controls/diary');
 let user = require('../controls/user');
+let map = require('../controls/map');
 let weixin = require('../controls/weixin');
 let api = require('../api');
 
@@ -19,6 +20,9 @@ router.post(api.userInfo, user.userInfo);
 router.post(api.login, user.login);
 router.post(api.uploadAvatar, user.uploadAvatar);
 router.post(api.userModify, user.userModify);
+
+//map
+router.post(api.mapFilter, map.filter)
 
 //weixin
 router.get(api.weixinTicket, weixin.weixinTicket);

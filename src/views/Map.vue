@@ -40,6 +40,7 @@
   data () {
     return {
         loading: false,
+        locations: [],
         msg: {},
         zoom: 5,
         plugin: ['ToolBar', {
@@ -52,62 +53,11 @@
          }
         }],
         amapManager: amapManager,
-        center: [119.549226, 39.913419],
-        markers: [
-          {
-            position: [111.65, 40.82],
-            events: {
-              click: () => {
-                this.filterLocation('呼和浩特')
-              },
-            },
-            visible: true,
-            draggable: false
-          },
-          {
-            position: [113.62, 34.75],
-            events: {
-              click: () => {
-                this.filterLocation('郑州')
-              },
-            },
-            visible: true,
-            draggable: false
-          },
-          {
-            position: [116.20, 40.22],
-            events: {
-              click: () => {
-                this.filterLocation('北京')
-              },
-            },
-            visible: true,
-            draggable: false
-          },
-          {
-            position: [116.92, 38.93],
-            events: {
-              click: () => {
-                this.filterLocation('天津')
-              },
-            },
-            visible: true,
-            draggable: false
-          },
-          {
-            position: [119.549226, 39.913419],
-            events: {
-              click: () => {
-                this.filterLocation('秦皇岛')
-              },
-            },
-            visible: true,
-            draggable: false
-          }
-        ],
+        center: [119.549226, 39.913419], //为答辩做的假数据
+        markers: [],
         polyline: {
         vid: POLYGON_ID,
-        path: [[111.65, 40.82], [113.62, 34.75], [116.20, 40.22], [116.92, 38.93], [119.549226, 39.913419]],
+        path: '',
         events: {
           click(e) {
             alert('click polyline');
@@ -138,7 +88,7 @@
       this.$router.push({path: '/Details', query: {id: did}});
     },
     filterLocation(location) {
-      this.func.ajaxPost(this.api.diaryFilter, {key: location}, res => {
+      this.func.ajaxPost(this.api.mapFilter, {key: location}, res => {
         if (res.data.code === 200) {
           this.msg = res.data.msg;
         }
@@ -146,10 +96,25 @@
     }
   },
   created() {
-    this.func.ajaxGet(this.api.diaryList, res => {
+    this.func.ajaxGet(this.api.diaryList, res => { 
         if (res.data.code === 200) {
             this.msg = res.data.msg;
             this.loading = false;
+          for (let m of res.data.msg) {
+            let location = [m.longitude, m.latitude];
+            this.locations.push(location);
+            this.markers.push({
+              position: location,
+              events: {
+                  click: () => {
+                  this.filterLocation(location);
+                },
+              },
+              visible: true,
+              draggable: false
+            });
+          }
+          this.polyline.path = this.locations.reverse();
         }
     });
   }
@@ -172,6 +137,7 @@
   .amap-wrapper {
     width: 100%;
     height: 300px;
+    margin-bottom: 20px;
   }
   .demo-component {
     height: 300px;

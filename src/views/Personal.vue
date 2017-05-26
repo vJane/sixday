@@ -133,9 +133,6 @@
         }
       }
     },
-    // computed: mapGetters({
-    //   userId: 'userId'
-    // }),
     created() {
       const uid = localStorage.getItem('uid');
       if (uid) {

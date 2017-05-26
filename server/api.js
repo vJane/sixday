@@ -13,5 +13,7 @@ module.exports = {
     uploadAvatar: path + 'user/uploadAvatar',
     userModify: path + 'user/userModify',
 
+    mapFilter: path + 'map/filter',
+
     weixinTicket: path + "weixin/weixinTicket",
 };

@@ -131,8 +131,11 @@
             init(instance) {
               instance.getCurrentPosition((status, result) => {
                 if (status === 'error') {
+                  //为答辩做的假数据
                   self.address = '河北省秦皇岛市海港区白塔岭街道河北科技师范学院继续教育学院河北科技师范学院';
                   self.district = '海港区';
+                  self.lng = '119.549226';
+                  self.lat = '39.913419'
                 } else {
                   self.lng = result.position.lng;
                   self.lat = result.position.lat;
@@ -162,6 +165,8 @@
         did: '',
         uid: '',
         weather: '',
+        localIds: [],
+        localData: '',
       };
     },
     computed: mapGetters({
@@ -169,6 +174,20 @@
     }),
     methods: {
       publishDiary() {
+        // wx.uploadImage({
+        //   localId: this.localIds[0],
+        //   isShowProgressTips: 1,
+        //   success: function(res) {
+        //     this.serverId = res.serverId;
+        //   }
+        // });
+        alert(this.lng, this.lat);
+        wx.getLocalImgData({
+          localId: this.localIds[0],
+          success: function(res) {
+            this.localData = res.localData;
+          }
+        });
         let weather = document.getElementById('weather');
         if (weather) {
           this.weather = weather.innerHTML;
@@ -218,8 +237,17 @@
       },
       fileChange: function(e) {
         const fileName = e.target.files[0].name;
-        this.diaryPhoto = '../assets/' + fileName;
+        // this.diaryPhoto = '../assets/' + fileName;
         // console.log(this.diaryPhoto)
+        wx.chooseImage({
+          count: 1,
+          sizeType: ['original', 'compressed'],
+          sourceType: ['album', 'camera'],
+          success: function(res) {
+            this.localIds = res.localIds;
+        alert(this.localIds);
+          }
+        });
       },
       shareQQ() {
         alert("QQ分享成功");
