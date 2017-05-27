@@ -1,10 +1,11 @@
-let moment = require('moment');
-let func = require('../sql/func');
-let uuid = require('node-uuid');
+'use stict'
+const moment = require('moment');
+const func = require('../sql/func');
+const uuid = require('node-uuid');
 
 function formatData(rows) {
     return rows.map(row => {
-        let date = moment(row.create_time).format('YYYY-MM-DD');
+        const date = moment(row.create_time).format('YYYY-MM-DD');
         return Object.assign({}, row, {create_time: date});
     });
 }
@@ -12,12 +13,23 @@ function formatData(rows) {
 
 module.exports = {
     filter (req, res) {
-        let key = req.body.key;
-        let sql = `SELECT diaries.id as id, maps.id as mid, photos.id as pid, src, context, temperature, longitude, latitude, address, diaries.created_at as created_at FROM diaries, maps, photos WHERE diaries.mid = maps.id AND photos.did = diaries.id AND longitude = '${key[0]}' AND latitude = '${key[1]}' ORDER BY diaries.created_at desc`;
+        const key = req.body.key;
+        const uid = req.body.uid;
+        const sql = `SELECT diaries.id as id, maps.id as mid, photos.id as pid, src, context, temperature, longitude, latitude, address, diaries.created_at as created_at ` + 
+        `FROM diaries LEFT JOIN maps ON diaries.mid = maps.id LEFT JOIN photos ON photos.did = diaries.id AND longitude = '${key[0]}' WHERE latitude = '${key[1]}' AND uid = '${uid}' ORDER BY diaries.created_at desc`;
         func.query(sql, result => {
             let rows = result.rows;
             rows = formatData(rows);
             res.json({code: 200, msg: rows});
         });
     },
+
+    mapData(req, res) {
+        const sql = 'select * from map_data';
+        func.query(sql, result => {
+            let rows = result.rows;
+            rows = formatData(rows);
+            res.json({code: 200, msg: rows[0]});
+        })
+    }
 };

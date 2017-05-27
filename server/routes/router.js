@@ -8,7 +8,7 @@ let api = require('../api');
 let router = express.Router();
 
 // diary
-router.get(api.diaryList, diary.fetchAll);
+router.post(api.diaryList, diary.fetchAll);
 router.post(api.diaryPublish, diary.publish);
 router.post(api.diaryDetail, diary.fetchById);
 router.post(api.diaryFilter, diary.filter);
@@ -22,7 +22,8 @@ router.post(api.uploadAvatar, user.uploadAvatar);
 router.post(api.userModify, user.userModify);
 
 //map
-router.post(api.mapFilter, map.filter)
+router.post(api.mapFilter, map.filter);
+router.get(api.mapData, map.mapData);
 
 //weixin
 router.get(api.weixinTicket, weixin.weixinTicket);

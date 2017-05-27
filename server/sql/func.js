@@ -1,3 +1,4 @@
+'use strict'
 const pg = require('pg');
 const db = require('../configs/db');
 const ResultSet = require('pg');

@@ -43,6 +43,8 @@
                 localStorage.setItem('uid', res.data.msg.id);
                 this.$store.commit('user', res.data.msg.id);
                 location.reload('/Personal');
+              } else {
+                alert(res.data.msg);
               }
             });
           } else {

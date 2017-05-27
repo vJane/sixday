@@ -1,3 +1,4 @@
+'use strict'
 let moment = require('moment');
 let func = require('../sql/func');
 let uuid = require('node-uuid');
@@ -42,11 +43,15 @@ module.exports = {
     },
 
     login (req, res) {
-        let sql = `SELECT * FROM users WHERE telephone = '${req.body.phone}' AND password = '${req.body.password}'`;
+        const sql = `SELECT * FROM users WHERE telephone = '${req.body.phone}' AND password = '${req.body.password}'`;
         func.query(sql, result => {
-            let rows = result.rows;
-            rows = formatData(rows);
-            res.json({code: 200, msg: rows[0]});
+            if (result.rowCount > 0) {
+                let rows = result.rows;
+                rows = formatData(rows);
+                res.json({code: 200, msg: rows[0]});
+            } else {
+                res.json({code: 500, msg: '此用户不存在，请先注册！'});
+            }
         });
     },
 

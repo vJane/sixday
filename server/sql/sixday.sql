@@ -41,3 +41,12 @@ insert into photos (id, src, did) values ('00000000-0000-0000-0000-000000000004'
 insert into photos (id, src, did) values ('00000000-0000-0000-0000-000000000005', 'http://a1.qpic.cn/psb?/V14QQRlh1TxXJi/xjk9lCkPsMdePJmeXmCqQnHWLyYgSTajkfJBHdpTz6s!/b/dGsBAAAAAAAA&bo=AASAAgAAAAARALE!&rf=viewer_4&t=5', '40d77040-411c-11e7-b1c0-ef475fa6521d');
 insert into photos (id, src, did) values ('00000000-0000-0000-0000-000000000006', 'http://a1.qpic.cn/psb?/V14QQRlh1TxXJi/ot1G09FCz6v8pQNOwP0hrNNC2Wp4fLJXZNeMklJ3ntE!/b/dGsBAAAAAAAA&bo=qgaAAgAAAAARABk!&rf=viewer_4&t=5', '76949c30-411c-11e7-b1c0-ef475fa6521d');
 insert into photos (id, src, did) values ('00000000-0000-0000-0000-000000000007', 'http://a1.qpic.cn/psb?/V14QQRlh1TxXJi/IiZM41t*FlfiJkdtL335.yJmC4bZwu5JPr*9Gcri.JU!/b/dGsBAAAAAAAA&bo=cQSAAgAAAAARAMA!&rf=viewer_4&t=5', 'd140e3f0-411c-11e7-b1c0-ef475fa6521d');
+
+create table map_data(
+    id uuid primary key,
+    address varchar,
+    district varchar,
+    longitude varchar,
+    latitude varchar
+);
+insert into map_data values ('00000000-0000-0000-0000-000000000000', '河北省秦皇岛市海港区白塔岭街道河北科技师范学院继续教育学院河北科技师范学', '海港区', '119.549226', '39.913419');

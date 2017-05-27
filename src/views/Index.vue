@@ -131,11 +131,15 @@
             init(instance) {
               instance.getCurrentPosition((status, result) => {
                 if (status === 'error') {
-                  //为答辩做的假数据
-                  self.address = '河北省秦皇岛市海港区白塔岭街道河北科技师范学院继续教育学院河北科技师范学院';
-                  self.district = '海港区';
-                  self.lng = '119.549226';
-                  self.lat = '39.913419'
+                  self.func.ajaxGet(self.api.mapData, res => {
+                      if (res.data.code === 200) {
+                        let row = res.data.msg;
+                        self.address = row.address;
+                        self.district = row.district;
+                        self.lng = row.longitude;
+                        self.lat = row.latitude;
+                      }
+                  });
                 } else {
                   self.lng = result.position.lng;
                   self.lat = result.position.lat;
@@ -181,7 +185,6 @@
         //     this.serverId = res.serverId;
         //   }
         // });
-        alert(this.lng, this.lat);
         wx.getLocalImgData({
           localId: this.localIds[0],
           success: function(res) {

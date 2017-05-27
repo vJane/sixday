@@ -5,7 +5,7 @@
         <div class="el-icon-loading"></div>
       </div>
       <div v-else class="diary-wrapper">
-        <img :src=msg.src class="diary-image"/>
+        <img v-if=msg.src :src=msg.src class="diary-image"/>
         <div class="diary-text">
           {{msg.context}}
         </div>
@@ -63,7 +63,7 @@
     left: 0;
   }
   .diary-wrapper {
-    margin-bottom: 100px;
+    margin-bottom: 150px;
   }
   .diary-image {
     width: 100%;
@@ -72,10 +72,12 @@
     box-shadow: 1px 1px 1px 1px #ccc;
   }
   .diary-text {
-    margin: 10px 20px;
+    margin: 10px 0;
     text-align: left;
     line-height: 1.5;
     text-indent: 2em;
+    font-size: 20px;
+    padding-top: 20px;
   }
   .diary-date {
     text-align: left;
@@ -89,5 +91,6 @@
   .diary-address {
     text-align: left;
     margin: 5px 0;
+    font-size: 14px;
   }
 </style>

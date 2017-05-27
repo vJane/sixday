@@ -40,6 +40,7 @@
   data () {
     return {
         loading: false,
+        uid: '',
         locations: [],
         msg: {},
         zoom: 5,
@@ -53,7 +54,7 @@
          }
         }],
         amapManager: amapManager,
-        center: [119.549226, 39.913419], //为答辩做的假数据
+        center: [], 
         markers: [],
         polyline: {
         vid: POLYGON_ID,
@@ -88,7 +89,7 @@
       this.$router.push({path: '/Details', query: {id: did}});
     },
     filterLocation(location) {
-      this.func.ajaxPost(this.api.mapFilter, {key: location}, res => {
+      this.func.ajaxPost(this.api.mapFilter, {key: location, uid: this.uid}, res => {
         if (res.data.code === 200) {
           this.msg = res.data.msg;
         }
@@ -96,25 +97,35 @@
     }
   },
   created() {
-    this.func.ajaxGet(this.api.diaryList, res => { 
+    const uid = localStorage.getItem('uid');
+    this.uid = uid;
+    this.func.ajaxPost(this.api.diaryList, {uid: uid}, res => { 
         if (res.data.code === 200) {
-            this.msg = res.data.msg;
-            this.loading = false;
+          this.msg = res.data.msg;
+          this.loading = false;
           for (let m of res.data.msg) {
-            let location = [m.longitude, m.latitude];
-            this.locations.push(location);
-            this.markers.push({
-              position: location,
-              events: {
-                  click: () => {
-                  this.filterLocation(location);
+            if (m.longitude && m.latitude){
+              let location = [m.longitude, m.latitude];
+              this.locations.push(location);
+              this.markers.push({
+                position: location,
+                events: {
+                    click: () => {
+                    this.filterLocation(location);
+                  },
                 },
-              },
-              visible: true,
-              draggable: false
-            });
+                visible: true,
+                draggable: false
+              });
+            }
           }
           this.polyline.path = this.locations.reverse();
+        }
+    });
+    this.func.ajaxGet(this.api.mapData, res => {
+        if (res.data.code === 200) {
+          let row = res.data.msg;
+          this.center = [row.longitude, row.latitude];
         }
     });
   }

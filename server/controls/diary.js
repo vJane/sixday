@@ -1,3 +1,4 @@
+'use strict'
 let moment = require('moment');
 let func = require('../sql/func');
 let uuid = require('node-uuid');
@@ -13,7 +14,9 @@ function formatData(rows) {
 module.exports = {
     // 获取日记列表
     fetchAll (req, res) {
-        const sql = "SELECT diaries.id as id, maps.id as mid, photos.id as pid, src, context, temperature, longitude, latitude, address, diaries.created_at as created_at FROM diaries, maps, photos WHERE diaries.mid = maps.id AND diaries.id = photos.did ORDER BY diaries.created_at desc";
+        const uid = req.body.uid;
+        const sql = `SELECT diaries.id as id, maps.id as mid, photos.id as pid, src, context, temperature, longitude, latitude, address, diaries.created_at as created_at ` +
+        `FROM diaries LEFT JOIN maps ON diaries.mid = maps.id LEFT JOIN photos ON diaries.id = photos.did WHERE uid='${uid}' ORDER BY diaries.created_at desc`;
         func.query(sql, result => {
             let rows = result.rows;
             rows = formatData(rows);
@@ -40,17 +43,19 @@ module.exports = {
     // 获取日记详情
     fetchById (req, res) {
         let id = req.body.id;
-        let sql = `SELECT * FROM diaries, maps, photos WHERE diaries.mid = maps.id AND diaries.id = photos.did AND diaries.id = '${id}'` ;
+        let sql = `SELECT * FROM diaries LEFT JOIN maps ON diaries.mid = maps.id LEFT JOIN photos ON diaries.id = photos.did WHERE diaries.id = '${id}'` ;
         func.query(sql, result => {
-            rows = formatData(result.rows);
+            let rows = formatData(result.rows);
             res.json({code: 200, msg: rows[0]});
         });
 
     },
 
     filter (req, res) {
-        let key = req.body.key;
-        let sql = `SELECT diaries.id as id, maps.id as mid, photos.id as pid, src, context, temperature, longitude, latitude, address, diaries.created_at as created_at FROM diaries, maps, photos WHERE diaries.mid = maps.id AND photos.did = diaries.id AND context LIKE '%${key}%' ORDER BY diaries.created_at desc`;
+        const key = req.body.key;
+        const uid = req.body.uid;
+        const sql = `SELECT diaries.id as id, maps.id as mid, photos.id as pid, src, context, temperature, longitude, latitude, address, diaries.created_at as created_at ` + 
+        `FROM diaries LEFT JOIN maps ON diaries.mid = maps.id LEFT JOIN photos ON photos.did = diaries.id WHERE context LIKE '%${key}%' AND uid = '${uid}' ORDER BY diaries.created_at desc`;
         func.query(sql, result => {
             let rows = result.rows;
             rows = formatData(rows);

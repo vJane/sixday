@@ -27,9 +27,7 @@
     </div>
     <div v-else class="list-wrapper">
       <div v-for="d in msg" class="diary-box">
-        <img :src=d.src class="diary-photo" @click="lookDetail(d.id)"/>
-        <!--{{d.src}}-->
-        <!--<img src="http://a1.qpic.cn/psb?/V14QQRlh1TxXJi/IiZM41t*FlfiJkdtL335.yJmC4bZwu5JPr*9Gcri.JU!/b/dGsBAAAAAAAA&bo=cQSAAgAAAAARAMA!&rf=viewer_4&t=5" />-->
+        <img v-if=d.src :src=d.src class="diary-photo" @click="lookDetail(d.id)"/>
         <div class="overflow">
           <div class="diary-date">{{d.created_at | date}}</div>
           <div class="diary-weather">{{d.temperature}}</div>
@@ -77,6 +75,7 @@
         msg: {},
         dialogVisible: false,
         input2: '',
+        uid: '',
       };
     },
     computed: mapGetters({
@@ -87,7 +86,7 @@
         done();
       },
       handleIconClick(ev) {
-        this.func.ajaxPost(this.api.diaryFilter, {key: this.input2}, res => {
+        this.func.ajaxPost(this.api.diaryFilter, {key: this.input2, uid: this.uid}, res => {
           if (res.data.code === 200) {
             this.msg = res.data.msg;
           }
@@ -110,7 +109,7 @@
       const uid = localStorage.getItem('uid');
       if (uid) {
         this.uid = uid;
-        this.func.ajaxGet(this.api.diaryList, res => {
+        this.func.ajaxPost(this.api.diaryList, {uid: uid}, res => {
             if (res.data.code === 200) {
               this.msg = res.data.msg;
               this.loading = false;
@@ -194,6 +193,7 @@
     text-align: left;
     text-indent: 2em;
     padding: 0 20px;
+    font-size: 18px;
   }
   .diary-date {
     float: left;
@@ -220,6 +220,7 @@
     float: left;
     text-align: left;
     padding: 0 20px;
+    font-size: 14px;
   }
   .list-wrapper {
     margin-bottom: 100px;

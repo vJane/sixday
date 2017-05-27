@@ -1,3 +1,4 @@
+'use strict'
 let path = '/api/';
 
 module.exports = {
@@ -14,6 +15,7 @@ module.exports = {
     userModify: path + 'user/userModify',
 
     mapFilter: path + 'map/filter',
+    mapData: path + 'map/mapData',
 
     weixinTicket: path + "weixin/weixinTicket",
 };
