@@ -18,4 +18,8 @@ module.exports = {
     mapData: path + 'map/mapData',
 
     weixinTicket: path + "weixin/weixinTicket",
+
+    getUploadToken: path + "qiniu/getUploadToken",
+
+    copyFile: path + "file/copyFile",
 };

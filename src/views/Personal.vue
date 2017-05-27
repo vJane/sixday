@@ -3,14 +3,11 @@
     <HeaderBar2 class="header"/>
     <div class="container">
       <div class="avatar-wrapper">
-        <el-upload
-          action="https://jsonplaceholder.typicode.com/posts/"
-          :show-file-list="false"
-          :on-success="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload">
-          <img v-if="imageUrl" :src="imageUrl" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon">上传头像</i>
-        </el-upload>
+       <input type="file" class="input-upload" id="upload" @change=fileChange /> 
+          <label for="upload">
+            <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+            <i v-else class="el-icon-plus avatar-uploader-icon">上传头像</i>
+          </label>
         <div class="login" v-if=!uid>
           <span @click="loginBox = true, registerBox = false">登录</span>
           <span @click="registerBox = true, loginBox = false">注册</span>
@@ -104,14 +101,6 @@
     methods: {
       handleAvatarSuccess(res, file) {
         const imageUrl = URL.createObjectURL(file.raw);
-        if (imageUrl && this.uid) {
-          this.func.ajaxPost(this.api.uploadAvatar, {'imageUrl': imageUrl, 'uid': this.uid}, res => {
-              if (res.data.code === 200) {
-                this.imageUrl = imageUrl;
-                console.log('ok')
-              }
-          });
-        }
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
@@ -130,7 +119,64 @@
           localStorage.removeItem('uid');
           this.$store.commit('user', '');
           this.uid = '';
+          this.imageUrl = '';
         }
+      },
+      fileChange: function(e) {
+        if (this.uid) {
+          const fileName = e.target.files[0].name;
+          this.func.ajaxPost(this.api.copyFile, {fileName: fileName}, res => {
+            if (res.data.code === 200) {
+              let image = res.data.msg;
+              this.imageUrl = image;
+                this.func.ajaxPost(this.api.uploadAvatar, {'imageUrl': this.imageUrl, 'uid': this.uid}, res => {
+                    if (res.data.code === 200) {
+                      alert(res.data.msg);
+                    }
+                });
+            } else {
+              alert(res.data.msg)
+            }
+          });
+        } else {
+          alert('请先登录！');
+        }  
+      },
+      getUploadToken() {
+        this.func.ajaxPost(this.api.getUploadToken, {}, res => {
+            if (res.data.code === 200) {
+              alert(res.data.msg)
+              let uploader = Qiniu.uploader({
+                  runtimes: 'html5,flash,html4',     
+                  browse_button: 'pickfiles',       
+                  uptoken : res.data.msg, 
+                  get_new_uptoken: false,            
+                  domain: 'sixday',   
+                  container: 'uploadButton',            
+                  max_file_size: '100mb',            
+                  flash_swf_url: 'path/of/plupload/Moxie.swf',  
+                  max_retries: 3,                    
+                  dragdrop: false,                     
+                  drop_element: 'container',          
+                  chunk_size: '4mb',                 
+                  auto_start: true,                  
+                  init: {
+                      'FilesAdded': function(up, files) {
+                          plupload.each(files, function(file) {
+                          });
+                      },
+                      'BeforeUpload': function(up, file) {
+                      },
+                      'UploadProgress': function(up, file) {
+                      },
+                      'FileUploaded': function(up, file, info) {
+                      },
+                      'Error': function(up, err, errTip) {
+                      },
+                  }
+              });
+            }
+        });
       }
     },
     created() {
@@ -140,7 +186,7 @@
             if (res.data.code === 200) {
               this.msg = res.data.msg;
               this.uid = this.msg.id;
-              // this.imageUrl = this.msg.portrait;
+              this.imageUrl = this.msg.portrait;
             }
         });
       }
@@ -168,7 +214,7 @@
   .avatar-wrapper {
     width: 100%;
     text-align: center;
-    background: url(../assets/perbg1.jpeg) no-repeat right bottom;
+    background: url(/static/perbg1.jpeg) no-repeat right bottom;
     background-size: 100%;
     padding-top: 20px;
   }
@@ -199,6 +245,7 @@
   }
   .avatar {
     width: 100px;
+    height: 100px;
     border-radius: 50%;
   }
   .fold {
@@ -226,5 +273,15 @@
   }
   .font-20 {
     font-size: 20px;
+  }
+  .input-upload {
+    width: 10px;
+    height: 10px;
+    background:transparent;
+    position: absolute;
+    left: 42%;
+    top: 100px;
+    color: #f8f8f8;
+    text-align: center;
   }
 </style>

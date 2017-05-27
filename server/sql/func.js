@@ -3,7 +3,7 @@ const pg = require('pg');
 const db = require('../configs/db');
 const ResultSet = require('pg');
 const uuid = require('node-uuid');
-const Promise = require('promise')
+const Promise = require('promise');
 
 const pool = new pg.Pool(db);
 

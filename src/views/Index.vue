@@ -2,14 +2,12 @@
   <div>
     <HeaderBar2 class="header"/>
     <div class="container">
-      
       <div class="box">
         <div class="edit">
           <textarea type="text" class="input-text" placeholder="记录我的心情..." v-model="diaryText">
           </textarea>
         </div>
         <div class="image">
-          {{diaryPhoto}}
           <div v-if=!diaryPhoto>
             <input type="file" class="input-upload" id="upload" @change=fileChange />
             <div class="input-upload">
@@ -18,11 +16,10 @@
             </div>
           </div>
           <div v-else class="input-upload">
-            <img v-bind:src="diaryPhoto" />
+            <img v-bind:src=diaryPhoto class="input-upload"/>
           </div>
         </div>
       </div>
-
       <div class="box">
         <p class="title">显示地点、天气</p>
         <div class="box-wrapper">
@@ -178,19 +175,6 @@
     }),
     methods: {
       publishDiary() {
-        // wx.uploadImage({
-        //   localId: this.localIds[0],
-        //   isShowProgressTips: 1,
-        //   success: function(res) {
-        //     this.serverId = res.serverId;
-        //   }
-        // });
-        wx.getLocalImgData({
-          localId: this.localIds[0],
-          success: function(res) {
-            this.localData = res.localData;
-          }
-        });
         let weather = document.getElementById('weather');
         if (weather) {
           this.weather = weather.innerHTML;
@@ -240,17 +224,14 @@
       },
       fileChange: function(e) {
         const fileName = e.target.files[0].name;
-        // this.diaryPhoto = '../assets/' + fileName;
-        // console.log(this.diaryPhoto)
-        wx.chooseImage({
-          count: 1,
-          sizeType: ['original', 'compressed'],
-          sourceType: ['album', 'camera'],
-          success: function(res) {
-            this.localIds = res.localIds;
-        alert(this.localIds);
+        this.func.ajaxPost(this.api.copyFile, {fileName: fileName}, res => {
+          if (res.data.code === 200) {
+            let image = res.data.msg;
+            this.diaryPhoto = image;
+          } else {
+            alert(res.data.msg)
           }
-        });
+        });  
       },
       shareQQ() {
         alert("QQ分享成功");
@@ -319,10 +300,6 @@
             nonceStr: nonce, 
             signature: signature,
             jsApiList: [
-              'chooseImage', 
-              'previewImage', 
-              'uploadImage', 
-              'downloadImage', 
               'onMenuShareTimeline', 
               'onMenuShareAppMessage', 
               'onMenuShareQQ', 

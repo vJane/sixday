@@ -29,12 +29,16 @@ module.exports = {
     publish (req, res) {
         const id = uuid.v1();
         const id2 = uuid.v1();
+        const id3 = uuid.v1();
         // if (req.body.diaryLocation) {
             let sql2 = `INSERT INTO maps (id, longitude, latitude, address) VALUES ('${id2}', '${req.body.diaryLocation.lng}', '${req.body.diaryLocation.lat}', '${req.body.diaryLocation.address}')`
             func.query(sql2, result => {
                 let sql = `INSERT INTO diaries (id, context, temperature, uid, mid) VALUES ('${id}', '${req.body.diaryText}', '${req.body.diaryWeather}', '${req.body.uid}', '${id2}')`;
                 func.query(sql, result => {
-                    res.json({code: 200, msg: id});
+                    let sql3 = `INSERT INTO photos (id, src, did) VALUES ('${id3}', '${req.body.diaryPhoto}', '${id}')`;
+                    func.query(sql3, result => {
+                        res.json({ code: 200, msg: id });
+                    });
                 });
             });
         // }
