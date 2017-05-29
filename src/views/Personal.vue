@@ -56,7 +56,7 @@
         </el-collapse>
       </div>
     </div>
-    <TabBar class="footer"/>
+    <TabBar class="footer" indexColor=3 />
   </div>
 </template>
 <script>

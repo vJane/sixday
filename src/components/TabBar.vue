@@ -53,6 +53,9 @@
         activeIndex: '3',
       };
     },
+    props: [
+      'indexColor'
+    ],
     methods: {
       getIamge: function() {
         wx.chooseImage({
@@ -64,6 +67,25 @@
               var localIds = res.localIds;
           }
         });
+      }
+    },
+    watch: {
+      indexColor(curVal, oldVal) {
+        alert(curVal)
+        switch(curVal) {
+          case 0:
+            this.index1 = 'font-20 icon-diary-blue';
+            console.log(this.index1)
+            break;
+          case 2:
+            this.index4 = "font-20 icon-map-blue";
+            console.log(this.index4)
+            break;
+          case 3:
+            this.index5 = "font-20 icon-personal-blue";
+            console.log(this.index5)
+            break;
+        }
       }
     },
     created() {
@@ -117,16 +139,32 @@
     background: url("../assets/icons/diary.svg") no-repeat center center;
     background-size: 100%;
   }
+  .icon-diary-blue {
+    background: url("../assets/icons/diary_blue.svg") no-repeat center center;
+    background-size: 100%;
+  }
   .icon-camera {
     background: url("../assets/icons/camera.svg") no-repeat center center;
+    background-size: 100%;
+  }
+  .icon-camera-blue {
+    background: url("../assets/icons/camera_blue.svg") no-repeat center center;
     background-size: 100%;
   }
   .icon-map {
     background: url("../assets/icons/locate.svg") no-repeat center center;
     background-size: 100%;
   }
+  .icon-map-blue {
+    background: url("../assets/icons/locate_blue.svg") no-repeat center center;
+    background-size: 100%;
+  }
   .icon-personal {
     background: url("../assets/icons/personal.svg") no-repeat center center;
+    background-size: 100%;
+  }
+  .icon-personal-blue {
+    background: url("../assets/icons/personal_blue.svg") no-repeat center center;
     background-size: 100%;
   }
   .icon-text {

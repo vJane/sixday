@@ -100,7 +100,7 @@
         <el-amap vid="amap" :plugin="plugin">
         </el-amap>
     </div>
-    <TabBar class="tab-footer"/>
+    <TabBar class="tab-footer" indexColor=1 />
   </div>
 </template>
 
@@ -290,7 +290,7 @@
           const timestamp = (new Date()).getTime();
           const nonce = uuid.v1();
           const url = 'http://localhost:8080';
-          const corpid = 'wx5ca89ffbd7dae3cc';
+          const corpid = '';
           const shaObj = new jsSHA(`jsapi_ticket=${ticket}&noncestr=${nonce}&timestamp=${timestamp}&url=${url}`, 'TEXT');
           const signature = shaObj.getHash('SHA-1', 'HEX');
           wx.config({

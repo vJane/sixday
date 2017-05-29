@@ -21,7 +21,7 @@
             <div class="diary-text" @click="lookDetail(d.id)">{{d.context}}</div>
           </div>
         </div>
-        <TabBar class="footer"/>
+        <TabBar class="footer" indexColor=2 />
     </div>
 </template>
 <script>

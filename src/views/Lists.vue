@@ -46,7 +46,7 @@
       :before-close="handleClose">
       <span>网络故障</span>
     </el-dialog>
-    <TabBar class="footer"/>
+    <TabBar class="footer" indexColor=0 />
   </div>
 </template>
 <script>

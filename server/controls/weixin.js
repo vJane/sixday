@@ -2,8 +2,8 @@
 const https = require('https');
 const uuid = require('node-uuid');
 
-const corpid = 'wx5ca89ffbd7dae3cc';
-const corpsecret = '7OtA4xOA97xbWdNWaSoKbCGUyFmC4QOwsNvbjlSrGCQN8jOaLG2uPeMWYYa-Y_t9';
+const corpid = '';
+const corpsecret = '';
 module.exports = {
   weixinTicket (request, response) {
     getToken(corpid, corpsecret).then(token => {
