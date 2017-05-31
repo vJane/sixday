@@ -5,7 +5,7 @@ let path = require('path');
 let session = require('express-session');
 let router = require('./routes/router');
 
-let port = process.env.PORT || 9999;
+let port = process.env.PORT || 6080;
 let app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
