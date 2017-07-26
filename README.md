@@ -71,7 +71,7 @@ npm run dev
 <img src="https://github.com/VivianWalker/sixday/blob/master/screenshots/2.png" width="365" height="619"/> 
 
 ### 动态地图页
-<img src="https://github.com/VivianWalker/sixday/tree/master/screenshots/3.png"/> 
+<img src="https://github.com/vJane/sixday/blob/master/screenshots/3.png"/> 
 
 ### 个人中心页
 <img src="https://github.com/VivianWalker/sixday/tree/master/screenshots/4.png"/> 
