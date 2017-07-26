@@ -64,7 +64,7 @@ npm run dev
 ## 截图
 
 ### 日记列表页
-![日记列表](https://github.com/vJane/sixday/tree/master/Screenshots/1.png)
+![日记列表](https://github.com/vJane/sixday/blob/master/screenshots/1.png)
 <img src="https://github.com/VivianWalker/sixday/tree/master/screenshots/1.png" width="365" height="619"/> 
 
 ### 日记发布页
