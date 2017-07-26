@@ -13,7 +13,7 @@ vue2 + vue-router + webpack + weixin + axios + nodejs + postgresql
 
 ``` bash
 # install
-git clone git@github.com:VivianWalker/sixday.git
+git clone git@github.com:vJane/sixday.git
 
 cd sixday
 
@@ -64,27 +64,26 @@ npm run dev
 ## 截图
 
 ### 日记列表页
-![日记列表](https://github.com/vJane/sixday/blob/master/screenshots/1.png)
-<img src="https://github.com/VivianWalker/sixday/tree/master/screenshots/1.png" width="365" height="619"/> 
+<img src="https://github.com/vJane/sixday/tree/master/screenshots/1.png" width="365" height="619"/> 
 
 ### 日记发布页
-<img src="https://github.com/VivianWalker/sixday/blob/master/screenshots/2.png" width="365" height="619"/> 
+<img src="https://github.com/vJane/sixday/blob/master/screenshots/2.png" width="365" height="619"/> 
 
 ### 动态地图页
-<img src="https://github.com/vJane/sixday/blob/master/screenshots/3.png"/> 
+<img src="https://github.com/vJane/sixday/blob/master/screenshots/3.png" width="365" height="619"/> 
 
 ### 个人中心页
-<img src="https://github.com/VivianWalker/sixday/tree/master/screenshots/4.png"/> 
-<img src="https://github.com/VivianWalker/sixday/tree/master/screenshots/41.png"/> 
+<img src="https://github.com/vJane/sixday/blob/master/screenshots/4.png" width="365" height="619"/> 
+<img src="https://github.com/vJane/sixday/blob/master/screenshots/41.png" width="365" height="619"/> 
 
 ### 日记详情页
-<img src="https://github.com/VivianWalker/sixday/tree/master/screenshots/21.png"/> 
+<img src="https://github.com/vJane/sixday/blob/master/screenshots/21.png" width="365" height="619"/> 
 
 ### 天气页
-<img src="https://github.com/VivianWalker/sixday/tree/master/screenshots/12.png"/> 
+<img src="https://github.com/vJane/sixday/blob/master/screenshots/12.png" width="365" height="619"/> 
 
 ### 日历页
-<img src="https://github.com/VivianWalker/sixday/tree/master/screenshots/11.png"/> 
+<img src="https://github.com/vJane/sixday/blob/master/screenshots/11.png" width="365" height="619"/> 
 
 ## 项目布局
 
@@ -93,4 +92,4 @@ server/后端服务器
 src/components/组件
 src/components/views/页面
 ```
-<img src="https://github.com/VivianWalker/sixday/tree/master/screenshots/catalog.png"/> 
+<img src="https://github.com/vJane/sixday/blob/master/screenshots/catalog.png" width="365" height="619"/> 
