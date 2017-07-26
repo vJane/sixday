@@ -68,7 +68,7 @@ npm run dev
 <img src="https://github.com/VivianWalker/sixday/tree/master/screenshots/1.png" width="365" height="619"/> 
 
 ### 日记发布页
-<img src="https://github.com/VivianWalker/sixday/tree/master/screenshots/2.png" width="365" height="619"/> 
+<img src="https://github.com/VivianWalker/sixday/blob/master/screenshots/2.png" width="365" height="619"/> 
 
 ### 动态地图页
 <img src="https://github.com/VivianWalker/sixday/tree/master/screenshots/3.png"/> 
