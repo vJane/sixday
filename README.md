@@ -64,7 +64,7 @@ npm run dev
 ## 截图
 
 ### 日记列表页
-<img src="https://github.com/vJane/sixday/tree/master/screenshots/1.png" width="365" height="619"/> 
+<img src="https://github.com/vJane/sixday/blob/master/screenshots/1.png" width="365" height="619"/> 
 
 ### 日记发布页
 <img src="https://github.com/vJane/sixday/blob/master/screenshots/2.png" width="365" height="619"/> 
@@ -92,4 +92,4 @@ server/后端服务器
 src/components/组件
 src/components/views/页面
 ```
-<img src="https://github.com/vJane/sixday/blob/master/screenshots/catalog.png" width="365" height="619"/> 
+<img src="https://github.com/vJane/sixday/blob/master/screenshots/catalog.png" width="320" height="1086"/> 
