@@ -43,15 +43,8 @@ npm run dev
 - [x] 天气页面
 - [x] 日历页面
 - [x] 微信签名
-- [ ] tabbar点击颜色变化
 - [ ] 微信分享测试
 - [ ] 失败交互统一弹窗
-- [ ] 打包&&入口
-- [ ] 图片上传绝对路径不可用
-- [ ] store的传值
-- [ ] token全局缓存
-- [ ] 密码加盐
-- [ ] 后台监测系统
 
 ## 总结
 从2016年11月开始构思这个项目。先完成了功能需求分析和设计图。当时工作接触到了微信接口、地图接口、vue这些技术，但从未真正意义上从底层开始实现，完成了地图接口后开始对做项目有了信心。在工作中开始学习构建项目，上传服务器。在2017年5月搭建好项目环境，完成接口调用。
@@ -82,9 +75,78 @@ npm run dev
 
 ## 项目布局
 
-``` bash
-server/后端服务器
-src/components/组件
-src/components/views/页面
 ```
-<img src="https://github.com/vJane/sixday/blob/master/screenshots/catalog.png" width="320" height="1086"/> 
+.
+sixday/
+├── README.md                     // 说明文件
+├── build                         // 打包文件
+│   ├── build.js
+│   ├── check-versions.js
+│   ├── dev-client.js
+│   ├── dev-server.js
+│   ├── utils.js
+│   ├── vue-loader.conf.js
+│   ├── webpack.base.conf.js
+│   ├── webpack.dev.conf.js
+│   ├── webpack.prod.conf.js
+│   └── webpack.test.conf.js
+├── config                         // 配置文件
+│   ├── dev.env.js
+│   ├── index.js
+│   ├── prod.env.js
+│   └── test.env.js
+├── eslintignore
+├── eslintrc.js
+├── index.html                     // 入口html文件
+├── main.js
+├── package.json
+├── screenshots                    // 屏幕截图
+├── server                         // node服务器
+│   ├── api.js
+│   ├── app.js
+│   ├── configs
+│   │   └── db.js
+│   ├── controls
+│   │   ├── diary.js
+│   │   ├── file.js
+│   │   ├── map.js
+│   │   ├── qiniu.js
+│   │   ├── user.js
+│   │   └── weixin.js
+│   ├── package.json
+│   ├── routes
+│   │   └── router.js
+│   └── sql
+│       ├── func.js
+│       └── sixday.sql
+├── src
+│   ├── App.vue
+│   ├── assets
+│   ├── components                    // 公共组件
+│   │   ├── Amap.vue
+│   │   ├── HeaderBar2.vue
+│   │   ├── Hello.vue
+│   │   ├── Login.vue
+│   │   ├── Register.vue
+│   │   ├── TabBar.vue
+│   │   ├── UserModify.vue
+│   │   └── Weather.vue
+│   ├── main.js
+│   ├── public
+│   │   └── func.js
+│   ├── router
+│   │   └── index.js
+│   ├── views                         // 页面文件
+│   │   ├── Calendar.vue
+│   │   ├── Details.vue
+│   │   ├── Index.vue
+│   │   ├── Lists.vue
+│   │   ├── Map.vue
+│   │   ├── Personal.vue
+│   │   └── WeatherPage.vue
+│   └── vuex                           // vuex
+│       └── store.js
+.
+
+18 directories, 115 files
+```
