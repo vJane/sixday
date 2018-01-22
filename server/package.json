@@ -13,6 +13,7 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "express-session": "^1.15.2",
+    "hmacsha1": "^1.0.0",
     "moment": "^2.18.1",
     "mysql": "^2.13.0",
     "node-uuid": "^1.4.8",
